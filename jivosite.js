@@ -34,19 +34,6 @@
 	
 	}
 
-	window.jivo_onOpen = function() {
-		// If chat is deployed - hide shortcut
-		if (jivo_cstm_widget){
-			jivo_cstm_widget.style.display = 'none';
-		}
-	}
-
-	window.jivo_onClose = function() {
-		// If chat is minimized - show label
-		if (jivo_cstm_widget)
-			jivo_cstm_widget.style.display = 'block';
-	}
-
 	window.set_jivo_cstm_widget_events = function (e) {
 		e.onclick = function(){
 			$('div[id^="chatbot-"] div[role="button"]').click();
@@ -61,7 +48,7 @@
 	}
 
 	let target = document.querySelector('div[id^="chatbot-"] div');
-	let config = { attributes: true};
+	let config = { attributes: true };
 	let observer = new MutationObserver(function(mutations) {
 		mutations.forEach(function(mutation) {
 				if(mutation.target.classList.contains('open')){
