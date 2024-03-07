@@ -2,6 +2,21 @@
 
 	let chatNodeDiv = document.querySelector('div[id^="chatbot-"]');
 	chatNodeDiv.querySelector('div').style.paddingBottom = '40px';
+	chatNodeDiv.querySelector('div').style.display = 'flex';
+	chatNodeDiv.querySelector('div').style.flexDirection = 'column';
+
+
+
+	window.getQueryParamFromScriptUrl = function() {
+		var currentScript = document.currentScript;
+
+		setInterval(function(){
+			var fullUrl = currentScript.src;
+			console.log(fullUrl)
+		},2000);
+	}
+
+	getQueryParamFromScriptUrl();
 
 
 	window.jivo_onLoadCallback = function() {
@@ -47,7 +62,7 @@
 			e.style.backgroundColor = '#0F172A';
 		}
 	}
-	
+
 	window.jivo_onOpen = function(){
 		document.querySelector('div[id^="chatbot-"] div[role="button"]').style.display = 'none';
 	}
