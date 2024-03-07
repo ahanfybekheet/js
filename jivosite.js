@@ -3,6 +3,7 @@
 	let chatNodeDiv = document.querySelector('div[id^="chatbot-"]');
 	chatNodeDiv.querySelector('div').style.paddingBottom = '40px';
 
+
 	window.jivo_onLoadCallback = function() {
 		// Create a DIV element for the label
 		window.jivo_cstm_widget = document.createElement('div');
@@ -45,6 +46,14 @@
 		e.onmouseout = function(){
 			e.style.backgroundColor = '#0F172A';
 		}
+	}
+	
+	window.jivo_onOpen = function(){
+		document.querySelector('div[id^="chatbot-"] div[role="button"]').style.display = 'none';
+	}
+	
+	window.jivo_onClose = function(){
+		document.querySelector('div[id^="chatbot-"] div[role="button"]').style.display = 'block';
 	}
 
 	let target = document.querySelector('div[id^="chatbot-"] div');
