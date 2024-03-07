@@ -1,4 +1,4 @@
-(function($){$(document).ready(function () {
+jQuery(document).ready(function ($) {
 
 	let chatNodeDiv = document.querySelector('div[id^="chatbot-"]');
 	chatNodeDiv.querySelector('div').style.paddingBottom = '40px';
@@ -87,4 +87,3 @@
 	observer.observe(target, config);
 });
 
-})(jQuery);
