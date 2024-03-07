@@ -5,18 +5,14 @@
 
 
 	window.getQueryParamFromScriptUrl = function() {
-		const scriptUrl = document.currentScript.src;
-		const queryString = scriptUrl.split('?')[1];
-		if (queryString) {
-			const urlParams = new URLSearchParams(queryString);
-			const paramValue = urlParams.get('jivo_chat_text');
-			return paramValue;
-		}
-		return null;
+		var currentScript = document.currentScript;
+
+		setInterval(function(){
+			var fullUrl = currentScript.src;
+			console.log(fullUrl)
+		},2000);
 	}
 
-	const paramValue = getQueryParamFromScriptUrl();
-	console.log("paramValue", paramValue);
 
 
 
