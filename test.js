@@ -13,6 +13,7 @@
 		},2000);
 	}
 
+	getQueryParamFromScriptUrl();
 
 
 
