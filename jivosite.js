@@ -1,6 +1,6 @@
 jQuery(document).ready(function ($) {
-
 	let chatNodeDiv = document.querySelector('div[id^="chatbot-"]');
+	if ( !chatNodeDiv ) return;
 	chatNodeDiv.querySelector('div').style.paddingBottom = '40px';
 	chatNodeDiv.querySelector('div').style.display = 'flex';
 	chatNodeDiv.querySelector('div').style.flexDirection = 'column';
@@ -59,18 +59,47 @@ jQuery(document).ready(function ($) {
 	}
 
 	let target = document.querySelector('div[id^="chatbot-"] div');
-	let config = { attributes: true };
+	let config = { attributes: true};
 	let observer = new MutationObserver(function(mutations) {
 		mutations.forEach(function(mutation) {
-				if(mutation.target.classList.contains('open')){
+				if(mutation.target.classList.contains('open', 'cnx-slide-down')){
 					$('#jivo_custom_widget').appendTo(mutation.target);
 					set_jivo_cstm_widget_events(document.getElementById('jivo_custom_widget'));
-					document.getElementById('jivo_custom_widget').style.display = 'block';
+					if (document.getElementById('jivo_custom_widget').classList.contains('no-animation')){
+						document.getElementById('jivo_custom_widget').style.display = 'block';
+						return;
+					}
+					setTimeout(function(){
+						if (document.getElementById('jivo_custom_widget').style.display === 'block') return;
+						document.getElementById('jivo_custom_widget').style.display = 'block';
+						document.getElementById('jivo_custom_widget').classList.add('jivo-slide-up');
+						setTimeout(function(){
+							document.getElementById('jivo_custom_widget').classList.remove('jivo-slide-up');
+							document.getElementById('jivo_custom_widget').classList.add('no-animation');
+						}, 1000);
+					},100);
+
 				}else{
 					document.getElementById('jivo_custom_widget').style.display = 'none';
 				}
 		});
 	});
 	observer.observe(target, config);
-});
 
+	var style = document.createElement('style');
+	style.type = 'text/css';
+	style.innerHTML = `@keyframes slideUp {
+		from {
+				transform: translateY(100%);
+				opacity: 0;
+		}
+		to {
+				transform: translateY(0%);
+				opacity: 1;
+		}
+	}
+	.jivo-slide-up {
+		animation: slideUp 1s forwards; 
+	}`;
+	document.getElementsByTagName('head')[0].appendChild(style);	
+});
