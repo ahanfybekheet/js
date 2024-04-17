@@ -1,14 +1,13 @@
 document.addEventListener("DOMContentLoaded", function() { 
 	let chatNodeDiv = document.querySelector('div[id^="chatbot-"]');
 	if ( !chatNodeDiv ) return;
-
-	chatNodeDiv.querySelector('div').style.paddingBottom = '40px';
+    
+    chatNodeDiv.querySelector('div').style.marginBottom = '40px';
 	chatNodeDiv.querySelector('div').style.display = 'flex';
 	chatNodeDiv.querySelector('div').style.flexDirection = 'column';
 
 
 	window.jivo_onLoadCallback = function() {
-		// Create a DIV element for the label
 		window.jivo_cstm_widget = document.createElement('div');
 		window.jivo_cstm_widget.style.fontWeight = 700;
 		window.jivo_cstm_widget.style.color = '#38BDF7';
@@ -64,7 +63,8 @@ document.addEventListener("DOMContentLoaded", function() {
 	let observer = new MutationObserver(function(mutations) {
 		mutations.forEach(function(mutation) {
 				if(mutation.target.classList.contains('open', 'cnx-slide-down')){
-					document.querySelector('#jivo_custom_widget').appendTo(mutation.target);
+                    if (!document.getElementById('jivo_custom_widget')) return;
+                    mutation.target.appendChild(document.getElementById('jivo_custom_widget'));
 					set_jivo_cstm_widget_events(document.getElementById('jivo_custom_widget'));
 					if (document.getElementById('jivo_custom_widget').classList.contains('no-animation')){
 						document.getElementById('jivo_custom_widget').style.display = 'block';
@@ -73,11 +73,11 @@ document.addEventListener("DOMContentLoaded", function() {
 					setTimeout(function(){
 						if (document.getElementById('jivo_custom_widget').style.display === 'block') return;
 						document.getElementById('jivo_custom_widget').style.display = 'block';
-						document.getElementById('jivo_custom_widget').classList.add('jivo-slide-up');
+						document.getElementById('jivo_custom_widget').classList.add('jivo-fade-in');
 						setTimeout(function(){
-							document.getElementById('jivo_custom_widget').classList.remove('jivo-slide-up');
+							document.getElementById('jivo_custom_widget').classList.remove('jivo-fade-in');
 							document.getElementById('jivo_custom_widget').classList.add('no-animation');
-						}, 1000);
+						}, 300);
 					},10000);
 
 				}else{
@@ -89,7 +89,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	var style = document.createElement('style');
 	style.type = 'text/css';
-	style.innerHTML = `@keyframes slideUp {from {transform: translateY(100%);opacity: 0;}to {transform: translateY(0%);opacity: 1;}}.jivo-slide-up {animation: slideUp 1s forwards; }`;
+	style.innerHTML = `@keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+            
+	.jivo-fade-in {
+		animation: fadeIn 0.3s; 
+	}`;
 	document.getElementsByTagName('head')[0].appendChild(style);	
 });
-// https://rawcdn.githack.com/ahanfybekheet/js/3302cf039676dd3b5747c720f221817661f0b77c/combine_jivochat_chatnode.min.js
