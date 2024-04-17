@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					},10000);
 
 				}else{
+                    if (!document.getElementById('jivo_custom_widget')) return;
 					document.getElementById('jivo_custom_widget').style.display = 'none';
 				}
 		});
