@@ -1,6 +1,9 @@
-jQuery(document).ready(function ($) {
+document.addEventListener("DOMContentLoaded", function() { 
 	let chatNodeDiv = document.querySelector('div[id^="chatbot-"]');
+	let jivoNodeDiv = document.querySelector('#jivo-iframe-container');
 	if ( !chatNodeDiv ) return;
+	if ( !jivoNodeDiv ) return;
+
 	chatNodeDiv.querySelector('div').style.paddingBottom = '40px';
 	chatNodeDiv.querySelector('div').style.display = 'flex';
 	chatNodeDiv.querySelector('div').style.flexDirection = 'column';
@@ -39,7 +42,7 @@ jQuery(document).ready(function ($) {
 
 	window.set_jivo_cstm_widget_events = function (e) {
 		e.onclick = function(){
-			$('div[id^="chatbot-"] div[role="button"]').click();
+			document.querySelector('div[id^="chatbot-"] div[role="button"]').click();
 			jivo_api.open();
 		}
 		e.onmouseover = function(){
@@ -63,7 +66,7 @@ jQuery(document).ready(function ($) {
 	let observer = new MutationObserver(function(mutations) {
 		mutations.forEach(function(mutation) {
 				if(mutation.target.classList.contains('open', 'cnx-slide-down')){
-					$('#jivo_custom_widget').appendTo(mutation.target);
+					document.querySelector('#jivo_custom_widget').appendTo(mutation.target);
 					set_jivo_cstm_widget_events(document.getElementById('jivo_custom_widget'));
 					if (document.getElementById('jivo_custom_widget').classList.contains('no-animation')){
 						document.getElementById('jivo_custom_widget').style.display = 'block';
@@ -77,7 +80,7 @@ jQuery(document).ready(function ($) {
 							document.getElementById('jivo_custom_widget').classList.remove('jivo-slide-up');
 							document.getElementById('jivo_custom_widget').classList.add('no-animation');
 						}, 1000);
-					},100);
+					},10000);
 
 				}else{
 					document.getElementById('jivo_custom_widget').style.display = 'none';
@@ -88,18 +91,7 @@ jQuery(document).ready(function ($) {
 
 	var style = document.createElement('style');
 	style.type = 'text/css';
-	style.innerHTML = `@keyframes slideUp {
-		from {
-				transform: translateY(100%);
-				opacity: 0;
-		}
-		to {
-				transform: translateY(0%);
-				opacity: 1;
-		}
-	}
-	.jivo-slide-up {
-		animation: slideUp 1s forwards; 
-	}`;
+	style.innerHTML = `@keyframes slideUp {from {transform: translateY(100%);opacity: 0;}to {transform: translateY(0%);opacity: 1;}}.jivo-slide-up {animation: slideUp 1s forwards; }`;
 	document.getElementsByTagName('head')[0].appendChild(style);	
 });
+// https://rawcdn.githack.com/ahanfybekheet/js/3302cf039676dd3b5747c720f221817661f0b77c/combine_jivochat_chatnode.min.js
