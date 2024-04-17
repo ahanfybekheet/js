@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	let chatNodeDiv = document.querySelector('div[id^="chatbot-"]');
 	let jivoNodeDiv = document.querySelector('#jivo-iframe-container');
 	if ( !chatNodeDiv ) return;
-	if ( !jivoNodeDiv ) return;
 
 	chatNodeDiv.querySelector('div').style.paddingBottom = '40px';
 	chatNodeDiv.querySelector('div').style.display = 'flex';
